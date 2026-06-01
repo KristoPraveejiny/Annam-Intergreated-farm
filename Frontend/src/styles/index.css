@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-950 text-slate-100 antialiased;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(16, 185, 129, 0.22), transparent 28%),
+    radial-gradient(circle at top right, rgba(34, 197, 94, 0.14), transparent 24%),
+    linear-gradient(180deg, #04130c 0%, #071b11 42%, #0c1720 100%);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.glass-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(110, 231, 183, 0.18), transparent 22%),
+    radial-gradient(circle at 80% 18%, rgba(34, 197, 94, 0.14), transparent 20%),
+    radial-gradient(circle at 50% 90%, rgba(236, 253, 245, 0.08), transparent 24%);
+  pointer-events: none;
+}
+
+.glass-panel {
+  @apply border border-white/20 bg-white/[0.08] backdrop-blur-2xl shadow-[0_20px_60px_rgba(2,6,23,0.25)] shadow-soft;
+}
+
+.farm-card {
+  @apply rounded-[1.75rem] border border-white/15 bg-white/[0.08] backdrop-blur-2xl shadow-[0_18px_55px_rgba(2,6,23,0.18)] transition duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.12] hover:shadow-[0_20px_70px_rgba(16,185,129,0.14)];
+}
+
+.farm-input {
+  @apply w-full rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white/90 outline-none backdrop-blur-2xl transition placeholder:text-white/45 focus:border-emerald-400 focus:bg-white/[0.14] focus:ring-2 focus:ring-emerald-400/20;
+}
+
+.section-shell {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.glass-gradient-text {
+  background: linear-gradient(90deg, #ecfdf5 0%, #bbf7d0 45%, #86efac 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
