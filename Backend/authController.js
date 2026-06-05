@@ -38,7 +38,7 @@ export async function register(req, res) {
     let result;
     try {
       result = await pool.query(
-        'INSERT INTO app_users (full_name, email, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING id, role',
+        'INSERT INTO app_users (full_name, email, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING id, full_name, email, role',
         [name, email, hashedPassword, normalizedRole]
       );
     } catch (e) {
@@ -50,7 +50,7 @@ export async function register(req, res) {
     }
     const user = result.rows[0];
     const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-    res.status(201).json({ token, user: { id: user.id, role: user.role } });
+    res.status(201).json({ token, user: { id: user.id, name: user.full_name, email: user.email, role: user.role } });
   } catch (err) {
     console.error('Register error:', err);
     res.status(500).json({ error: 'Server error' });
@@ -63,7 +63,7 @@ export async function login(req, res) {
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password required' });
     }
-    const result = await pool.query('SELECT id, password_hash, role FROM app_users WHERE email = $1', [email]);
+    const result = await pool.query('SELECT id, full_name, email, password_hash, role FROM app_users WHERE email = $1', [email]);
     const user = result.rows[0];
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
@@ -73,7 +73,7 @@ export async function login(req, res) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
     const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-    res.json({ token, user: { id: user.id, role: user.role } });
+    res.json({ token, user: { id: user.id, name: user.full_name, email: user.email, role: user.role } });
   } catch (err) {
     console.error('Login error:', err);
     res.status(500).json({ error: 'Server error' });

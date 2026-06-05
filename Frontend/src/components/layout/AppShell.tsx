@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { ComponentType, ReactNode } from 'react';
 import { FiBell, FiMenu, FiSearch } from 'react-icons/fi';
+import UserProfile from './UserProfile';
 import { NavLink } from 'react-router-dom';
 import { dashboardBadges } from '../../data/mock';
 import { Button } from '../ui/Button';
@@ -19,6 +20,27 @@ type AppShellProps = {
 
 export function AppShell({ role, items, children }: AppShellProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [temp, setTemp] = useState<string>('29.5°C');
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/weather-advisory/');
+        if (response.ok) {
+          const data = await response.json();
+          if (data?.weather?.temperature !== undefined) {
+            setTemp(`${data.weather.temperature.toFixed(1)}°C`);
+          }
+        }
+      } catch (err) {
+        // Silent fallback
+      }
+    };
+    fetchWeather();
+    // Poll every 5 minutes
+    const interval = setInterval(fetchWeather, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="glass-bg min-h-screen text-white">
@@ -78,8 +100,9 @@ export function AppShell({ role, items, children }: AppShellProps) {
                 <FiBell className="text-lg" />
                 <span className="absolute right-3 top-3 h-2 w-2 rounded-full bg-rose-500" />
               </Button>
+              <UserProfile />
               <div className="hidden rounded-2xl border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-2xl md:block">
-                {dashboardBadges.weather}
+                Temp: {temp}
               </div>
             </div>
           </header>

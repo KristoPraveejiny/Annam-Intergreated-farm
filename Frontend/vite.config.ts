@@ -3,4 +3,14 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      // Proxy /django-api/* → Django on port 8000
+      '/django-api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/django-api/, ''),
+      },
+    },
+  },
 });

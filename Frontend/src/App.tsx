@@ -15,6 +15,14 @@ import RegisterPage from './pages/auth/RegisterPage';
 import ReportsAnalyticsPage from './pages/ReportsAnalyticsPage';
 import WorkforceManagementPage from './pages/WorkforceManagementPage';
 import { AppShell } from './components/layout/AppShell';
+import FarmManagerCropsPage from './pages/dashboards/FarmManagerCropsPage';
+import FarmManagerLivestockPage from './pages/dashboards/FarmManagerLivestockPage';
+import FarmManagerWorkforcePage from './pages/dashboards/FarmManagerWorkforcePage';
+import FarmerTasksPage from './pages/dashboards/FarmerTasksPage';
+import FarmerCropUpdatesPage from './pages/dashboards/FarmerCropUpdatesPage';
+import FarmerLivestockPage from './pages/dashboards/FarmerLivestockPage';
+import FarmerAttendancePage from './pages/dashboards/FarmerAttendancePage';
+import FarmerProfilePage from './pages/dashboards/FarmerProfilePage';
 
 export default function App() {
   return (
@@ -32,6 +40,63 @@ export default function App() {
       <Route path="/workforce" element={<WorkforceManagementPage />} />
       <Route path="/notifications" element={<NotificationsPage />} />
       <Route path="/reports" element={<ReportsAnalyticsPage />} />
+      {/* Farm Manager subpages */}
+      <Route path="/dashboard/farm-manager/crops" element={
+        <AppShell role="farm-manager" items={publicNavItems['farm-manager']}>
+          <FarmManagerCropsPage />
+        </AppShell>
+      } />
+      <Route path="/dashboard/farm-manager/livestock" element={
+        <AppShell role="farm-manager" items={publicNavItems['farm-manager']}>
+          <FarmManagerLivestockPage />
+        </AppShell>
+      } />
+      <Route path="/dashboard/farm-manager/workforce" element={
+        <AppShell role="farm-manager" items={publicNavItems['farm-manager']}>
+          <FarmManagerWorkforcePage />
+        </AppShell>
+      } />
+      <Route path="/dashboard/farm-manager/reports" element={
+        <AppShell role="farm-manager" items={publicNavItems['farm-manager']}>
+          <ReportsAnalyticsPage />
+        </AppShell>
+      } />
+      <Route path="/dashboard/farm-manager/ai-advisory" element={
+        <AppShell role="farm-manager" items={publicNavItems['farm-manager']}>
+          <AIAdvisoryPage />
+        </AppShell>
+      } />
+      <Route path="/dashboard/farm-manager/disease-detection" element={
+        <AppShell role="farm-manager" items={publicNavItems['farm-manager']}>
+          <DiseaseDetectionPage />
+        </AppShell>
+      } />
+      {/* Farmer Worker subpages */}
+      <Route path="/dashboard/farmer-worker/tasks" element={
+        <AppShell role="farmer-worker" items={publicNavItems['farmer-worker']}>
+          <FarmerTasksPage />
+        </AppShell>
+      } />
+      <Route path="/dashboard/farmer-worker/crop-updates" element={
+        <AppShell role="farmer-worker" items={publicNavItems['farmer-worker']}>
+          <FarmerCropUpdatesPage />
+        </AppShell>
+      } />
+      <Route path="/dashboard/farmer-worker/livestock" element={
+        <AppShell role="farmer-worker" items={publicNavItems['farmer-worker']}>
+          <FarmerLivestockPage />
+        </AppShell>
+      } />
+      <Route path="/dashboard/farmer-worker/attendance" element={
+        <AppShell role="farmer-worker" items={publicNavItems['farmer-worker']}>
+          <FarmerAttendancePage />
+        </AppShell>
+      } />
+      <Route path="/dashboard/farmer-worker/profile" element={
+        <AppShell role="farmer-worker" items={publicNavItems['farmer-worker']}>
+          <FarmerProfilePage />
+        </AppShell>
+      } />
       {roleDashboards.map((dashboard) => (
         <Route
           key={dashboard.slug}

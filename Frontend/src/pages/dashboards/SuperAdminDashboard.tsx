@@ -2,7 +2,7 @@
 import { Card } from '../../components/ui/Card';
 import { SectionHeading } from '../../components/ui/SectionHeading';
 import { ChartPanel } from '../../components/ui/ChartPanel';
-import { FiShield, FiGrid, FiAlertTriangle, FiActivity, FiUsers, FiDollarSign } from 'react-icons/fi';
+import { FiShield, FiGrid, FiAlertTriangle, FiActivity, FiUsers, FiDollarSign, FiCloud, FiCpu } from 'react-icons/fi';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, BarChart, Bar } from 'recharts';
 import { chartSeries, pieData, colors, metrics, alerts } from '../../data/mock';
 
@@ -86,7 +86,7 @@ export default function SuperAdminDashboard() {
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie data={pieData} dataKey="value" nameKey="name" innerRadius={62} outerRadius={90} paddingAngle={4}>
-                {pieData.map((entry, index) => (
+                {pieData.map((entry: any, index: number) => (
                   <Cell key={entry.name} fill={colors[index % colors.length]} />
                 ))}
               </Pie>
