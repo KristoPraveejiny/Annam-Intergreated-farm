@@ -1,0 +1,7 @@
+tensorflow>=2.15.0
+numpy
+pillow>=9.5.0
+matplotlib>=3.7.1
+scikit-learn>=1.2.2
+django>=4.2.0
+django-cors-headers>=4.0.0

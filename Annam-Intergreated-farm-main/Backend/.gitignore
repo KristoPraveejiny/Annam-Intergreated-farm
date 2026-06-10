@@ -1,0 +1,10 @@
+.env
+
+node_modules
+dist
+coverage
+logs
+
+# Environment files
+.env
+*.env
